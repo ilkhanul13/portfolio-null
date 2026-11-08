@@ -16,6 +16,7 @@ export default function StaggeredButton({
   type = "button", 
   disabled = false,
   enableHoverBg = true,
+  isActive = false,        // true: latar hover tetap terisi (mis. filter yang sedang dipilih)
   hoverBgClass = "bg-[#d2ff00]",
   hoverTextClass = "group-hover:text-black",
   // Props lain seperti target="_blank" akan masuk ke ...props
@@ -59,7 +60,7 @@ export default function StaggeredButton({
         <span 
           className={`
             absolute inset-0 
-            translate-y-[105%] group-hover:translate-y-0
+            ${isActive ? 'translate-y-0' : 'translate-y-[105%] group-hover:translate-y-0'}
             transition-transform 
             duration-500 
             ease-in-out

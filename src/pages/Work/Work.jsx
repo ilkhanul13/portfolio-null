@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'; // Tambahkan AnimatePre
 import PageTransition from '../../components/PageTransition';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import RevealWrapper from '../../components/RevealWrapper';
+import StaggeredButton from '../../components/StaggeredButton';
 import { projectsData } from '../../utils/projectsData';
 
 const textRevealVariants = {
@@ -113,32 +114,19 @@ const filteredProjects = useMemo(() => {
               const isActive = activeCategory === cat;
 
               return (
-                <motion.button
-                  key={cat}
-                  variants={filterButtonVariants}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`
-                    relative group overflow-hidden px-5 py-2 text-sm md:text-base 
-                    border transition-all duration-300 ease-in-out cursor-pointer
-                    ${isActive ? 'border-white/20' : 'border-white/20 hover:border-white/20'}
-                  `}
-                >
-                  <span 
+                <motion.div key={cat} variants={filterButtonVariants}>
+                  <StaggeredButton
+                    onClick={() => setActiveCategory(cat)}
+                    isActive={isActive}
                     className={`
-                      absolute inset-0 bg-[#d2ff00] transition-transform duration-500 ease-[cubic-bezier(0.80,0,0.43,1)]
-                      ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}
-                    `}
-                  ></span>
-
-                  <span 
-                    className={`
-                      relative z-10 font-medium transition-colors duration-300
-                      ${isActive ? 'text-black' : 'text-white/60 group-hover:text-black'}
+                      px-5 py-2 text-sm md:text-base font-medium
+                      border border-white/20 transition-colors duration-300
+                      ${isActive ? 'text-black' : 'text-white/60'}
                     `}
                   >
                     {cat}
-                  </span>
-                </motion.button>
+                  </StaggeredButton>
+                </motion.div>
               );
             })}
           </motion.div>
