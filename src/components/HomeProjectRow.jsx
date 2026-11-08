@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'; // <--- JANGAN LUPA IMPORT INI
 import { getCloudinaryUrl } from "../utils/cloudinaryHelpers"; 
 import StaggeredButton from './StaggeredButton';
 import VariableProximity from './VariableProximity';
-import StripeTransition from './StripeTransition';
+import BlurTransition from './BlurTransition';
 
 // Tambahkan prop 'animDelay' disini
 export default function HomeProjectRow({ project, index = 0 }) {
@@ -63,7 +63,7 @@ export default function HomeProjectRow({ project, index = 0 }) {
             
               {/* KOLOM 1: Index Number */}
               <div className="md:col-span-1 flex flex-col justify-start items-start">
-                <StaggeredButton enableHoverBg={false} className="text-white text-xl font-medium">
+                <StaggeredButton enableHoverBg={false} className="font-mono text-white text-xl font-medium">
                   {String(index + 1).padStart(2, '0')}
                 </StaggeredButton>
               </div>
@@ -111,14 +111,13 @@ export default function HomeProjectRow({ project, index = 0 }) {
                             style={{ backfaceVisibility: 'hidden' }}
                           />
                       ) : (
-                        <StripeTransition
+                        <BlurTransition
                           key={currentIndex} 
                           firstImageSrc={prevImageUrl}
                           secondImageSrc={currentImageUrl}
-                          numPoints={5} 
-                          animationStepDuration={1.3} 
-                          className="w-full h-full"
-                          imgClassName={standardImageClasses}
+                          duration={1.2}
+                          /* grayscale -> warna saat hover dipasang di pembungkus (bukan di lapisan yang dianimasikan blur) */
+                          className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )
                     ) : (

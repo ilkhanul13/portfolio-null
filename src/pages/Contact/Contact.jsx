@@ -210,10 +210,24 @@ export default function Contact() {
                     </MaskedReveal>
                     
                     <MaskedReveal className="mb-2.5">
-                       <p className="block text-[1.2rem] text-white">ilkhanull@gmail.com</p>
+                       <StaggeredButton
+                         href="mailto:ilkhanull@gmail.com"
+                         enableHoverBg={false}
+                         className="text-[1.2rem] text-white hover:text-[#d2ff00] transition-colors duration-300"
+                       >
+                         ilkhanull@gmail.com
+                       </StaggeredButton>
                     </MaskedReveal>
                     <MaskedReveal className="mb-2.5">
-                       <p className="block text-[1.2rem] text-white">+6281323233129</p>
+                       <StaggeredButton
+                         href="https://wa.me/6281323233129"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         enableHoverBg={false}
+                         className="font-mono text-[1.2rem] text-white hover:text-[#d2ff00] transition-colors duration-300"
+                       >
+                         +62-81323233129
+                       </StaggeredButton>
                     </MaskedReveal>
                   </div>
                   

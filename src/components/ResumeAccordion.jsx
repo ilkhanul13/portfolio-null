@@ -76,8 +76,8 @@ const ResumeAccordion = ({ data }) => {
                   <div key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-5 py-8 border-t border-[#222]">
                     <div className="flex flex-col items-start">
                       <div className="text-[1.1rem] text-white flex flex-col">
-                        <span>{item.year}</span>
-                        {item.timeline && <span className="text-[1.1rem] text-[#888]">{item.timeline}</span>}
+                        <span className="font-mono">{item.year}</span>
+                        {item.timeline && <span className="font-mono text-[1.1rem] text-[#888]">{item.timeline}</span>}
                       </div>
                       {item.category && (
                         <div className="text-[0.8rem] text-black uppercase font-bold bg-[#d2ff00] w-25 py-1 mt-2 md:mt-3 inline-flex items-center justify-center">
@@ -118,7 +118,7 @@ const ResumeAccordion = ({ data }) => {
                   <div key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-5 py-8 border-t border-[#222]">
                     <div className="flex flex-col items-start">
                       <div className="text-[1.1rem] text-white">
-                        <span>{item.year}</span>
+                        <span className="font-mono">{item.year}</span>
                       </div>
                     </div>
                     <div>
@@ -148,7 +148,7 @@ const ResumeAccordion = ({ data }) => {
                       </div>
                       <div className="flex flex-col">
                         <h4 className="text-[1.1rem] text-white m-0">{item.role}</h4>
-                        <span className="text-[0.8rem] text-[#888]">{item.company} • {item.year}</span>
+                        <span className="text-[0.8rem] text-[#888]">{item.company} • <span className="font-mono">{item.year}</span></span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 w-full md:w-auto mt-3 md:mt-0">

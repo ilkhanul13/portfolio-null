@@ -100,7 +100,7 @@ export default function MenuOverlay({ navItems, onNavigate, isNavigating }) {
                      <div 
                        onClick={() => onNavigate(item.href)} 
                        className="block w-full text-white cursor-pointer transition-transform duration-300 ease-out hover:text-[#d2ff00] hover:translate-x-4
-                                  text-[3rem] md:text-[clamp(3.5rem,6vw,6rem)] md:leading-[1.1] font-normal"
+                                  font-display text-[3rem] md:text-[clamp(3.5rem,6vw,6rem)] md:leading-[1.1] font-normal"
                      >
                         {item.title}
                      </div>

@@ -153,7 +153,7 @@ const VariableProximity = forwardRef((props, ref) => {
       onClick={onClick}
       style={{
         display: 'inline',
-        fontFamily: '"DM Sans", sans-serif', // Pastikan font ini diload di index.html/css
+        fontFamily: '"Bricolage Grotesque", sans-serif', // Diload di index.html
         ...style,
       }}
       className={className}

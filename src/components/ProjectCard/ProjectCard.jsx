@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getCloudinaryUrl } from "../../utils/cloudinaryHelpers";
-import StripeTransition from '../StripeTransition'; // Sesuaikan path import
+import BlurTransition from '../BlurTransition';
 
 export default function ProjectCard({ project }) {
   const images = project.images || [];
+
   
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -36,7 +37,7 @@ export default function ProjectCard({ project }) {
 
   const wrapperVariants = {
     initial: { scale: 1 },
-    hover: { scale: 1.05 } 
+    hover: { scale: 1 } // zoom hover dihapus
   };
 
   const smoothEase = [0.22, 1, 0.36, 1]; 
@@ -103,14 +104,13 @@ export default function ProjectCard({ project }) {
                   style={{ backfaceVisibility: 'hidden' }}
                 />
               ) : (
-                /* Menggunakan StripeTransition menggantikan AnimatePresence */
-                <StripeTransition
+                /* Pergantian gambar dengan animasi blur */
+                <BlurTransition
                   key={currentIndex} 
                   firstImageSrc={prevImageUrl}
                   secondImageSrc={currentImageUrl}
-                  numPoints={5}
-                  animationStepDuration={1.3} 
-                  className="w-[102%] h-[102%]"
+                  duration={1.2}
+                  className="w-full h-full"
                 />
               )
             ) : (
@@ -146,7 +146,7 @@ export default function ProjectCard({ project }) {
                     {project.year && (
                       <>
                         <span className="text-[0.6rem] shrink-0">•</span>
-                        <span className="shrink-0">{project.year}</span>
+                        <span className="shrink-0 font-mono">{project.year}</span>
                       </>
                     )}
                   </motion.div>

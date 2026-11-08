@@ -9,6 +9,7 @@ import StaggeredLoopText from '../../components/StaggeredLoopText';
 import VariableProximity from '../../components/VariableProximity';
 import { projectsData } from '../../utils/projectsData'; 
 import XRayText from '../../components/XRayText/XRayText';
+import HeroImageLink from '../../components/HeroImageLink/HeroImageLink';
 
 // Variant standard yang tidak butuh delay dinamis tetap di luar
 const standardRevealVariants = {
@@ -48,7 +49,7 @@ export default function Home({ isReady = true, animDelay = 0.4 }) {
 
   const HERO_IMAGE_URL = "https://res.cloudinary.com/dfovmrebt/image/upload/v1769190120/3-2_xntppx.png"; 
   const recentProjects = projectsData.slice(0, 4);
-  const MAIN_TEXT_SIZE = "text-[clamp(2.5rem,10vw,120px)] text-white";
+  const MAIN_TEXT_SIZE = "font-display text-[clamp(2.5rem,10vw,120px)] text-white";
 
   // --- 1. SETUP TIMING DINAMIS ---
   // Kita gunakan useMemo agar timing hanya dihitung ulang jika animDelay berubah
@@ -85,18 +86,35 @@ export default function Home({ isReady = true, animDelay = 0.4 }) {
     }
   };
 
+  // Tinggi gambar = tinggi huruf kapital Bricolage (~0.68em, sudah termasuk overshoot).
+  // Lebar 1.7em (rasio ~2.5:1) -> lebih panjang.
+  // Dianimasikan em -> em (satuan sama) supaya interpolasi murni, tanpa mengukur "auto"
+  // di tengah animasi (penyebab getaran).
   const imageRevealVariants = {
-    initial: { width: 0, opacity: 0, margin: 0, scale: 0.9 },
+    initial: { width: "0em", marginLeft: "0rem", marginRight: "0rem", opacity: 0 },
     animate: {
-      width: "auto", 
+      width: "1.7em",
+      marginLeft: "0.5rem",
+      marginRight: "0.5rem",
       opacity: 1,
-      margin: "0 0.5rem",
-      scale: 1,
       transition: { 
         duration: 1.4, 
         ease: [0.22, 1, 0.36, 1], 
         delay: timing.LATE, // Menggunakan delay dinamis
         restDelta: 0.001 
+      }
+    }
+  };
+
+  // Zoom-out halus di dalam wrapper (transform saja, tidak memicu reflow)
+  const imageInnerVariants = {
+    initial: { scale: 1.25 },
+    animate: {
+      scale: 1,
+      transition: { 
+        duration: 1.6, 
+        ease: [0.22, 1, 0.36, 1], 
+        delay: timing.LATE 
       }
     }
   };
@@ -195,23 +213,15 @@ export default function Home({ isReady = true, animDelay = 0.4 }) {
                   </MaskedReveal>
 
                   {/* GAMBAR TENGAH */}
-                  <motion.div 
-                    className="relative flex items-center justify-center overflow-hidden"
-                    variants={imageRevealVariants} // Variants dinamis
-                    layout
-                    style={{ willChange: "width, margin, opacity" }}
-                  >
-                    <img 
-                      src={HERO_IMAGE_URL} 
-                      alt="Portrait"
-                      className="
-                        h-[0.75em] w-auto            
-                        aspect-3/2                 
-                        object-cover                 
-                        shrink-0
-                      "
-                    />
-                  </motion.div>
+                  <HeroImageLink
+                    to="/about"
+                    src={HERO_IMAGE_URL}
+                    alt="Portrait of Ilkhanul Khalik"
+                    label="Go to About page"
+                    wrapperVariants={imageRevealVariants}
+                    imageVariants={imageInnerVariants}
+                    imageClassName="h-[0.68em] w-[1.7em] max-w-none object-cover shrink-0"
+                  />
 
                   {/* NAMA BELAKANG */}
                   <MaskedReveal>
@@ -278,21 +288,21 @@ export default function Home({ isReady = true, animDelay = 0.4 }) {
               {[1, 2, 3].map((_, i) => (
                   <div key={i} style={{ display: 'contents' }}>
                     <div className="marquee-group inline-flex items-center">
-                      <span className="text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
+                      <span className="font-display text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
                         Where Design Meets Technology
                       </span>
                       <span className="w-15 h-0.5 bg-current mx-8 md:mx-20 rounded-xs"></span>
                     </div>
 
                     <div className="marquee-group inline-flex items-center">
-                      <span className="text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
+                      <span className="font-display text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
                         Est 2026
                       </span>
                       <span className="w-15 h-0.5 bg-current mx-8 md:mx-20 rounded-xs"></span>
                     </div>
 
                     <div className="marquee-group inline-flex items-center">
-                      <span className="text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
+                      <span className="font-display text-white text-[clamp(1rem,2.5vw,3rem)] font-light leading-[1.1] whitespace-nowrap inline-block">
                         Creative Worker
                       </span>
                       <span className="w-15 h-0.5 bg-current mx-8 md:mx-20 rounded-xs"></span>
@@ -315,7 +325,7 @@ export default function Home({ isReady = true, animDelay = 0.4 }) {
                 initial="initial"
                 animate={isReady ? "animate" : "initial"} 
               >
-                <XRayText className="text-white text-[clamp(2.5rem,10vw,120px)] font-bold tracking-[1px] leading-none">
+                <XRayText className="font-display text-white text-[clamp(2.5rem,10vw,120px)] font-bold tracking-[1px] leading-none">
                   Recent Work
                 </XRayText>
               </MaskedReveal>

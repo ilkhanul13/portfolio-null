@@ -1,12 +1,10 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
 
 @theme {
   /* Mendaftarkan Font Family */
-  --font-sans: "DM Sans", sans-serif;
-  --font-anton: "Anton", sans-serif;
-  --font-Helvetica: "Helvetica Neue", sans-serif;
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;      /* teks paragraf & kecil (default) */
+  --font-display: "Bricolage Grotesque", "Hanken Grotesk", sans-serif; /* teks besar / heading */
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;    /* angka kecil */
 
   /* Mendaftarkan Warna Custom */
   --color-primary: #303596;
@@ -39,6 +37,11 @@
     @apply font-normal -tracking-[0.02em];
   }
 
+  /* Heading besar memakai font display */
+  h1, h2 {
+    @apply font-display;
+  }
+
   /* Setup #root agar full height */
   #root {
     @apply min-h-screen flex flex-col relative isolate;
@@ -65,11 +68,6 @@
 
 .container-custom {
   @apply w-[90%] max-w-xl mx-auto; 
-}
-
-.font-anton {
-  font-family: var(--font-anton);
-  font-weight: 400;
 }
 
 .app {

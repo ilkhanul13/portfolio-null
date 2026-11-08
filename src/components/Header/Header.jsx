@@ -87,15 +87,16 @@ export default function Header() {
 
           {/* NAVIGASI KANAN */}
           <div className="flex items-center justify-end overflow-hidden py-2 -my-2">
-            <AnimatePresence mode="popLayout" initial="initial">
+            {/* mode="wait": item lama keluar dulu, baru yang baru masuk (tidak menumpuk) */}
+            <AnimatePresence mode="wait" initial="initial">
               {!showCompactMenu ? (
                 <motion.nav 
                   key="full-nav"
                   className="hidden md:flex gap-6 lg:gap-10 items-center"
                   initial={{ y: -50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -50, opacity: 0 }} 
-                  transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                  exit={{ y: -50, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
                   style={{ pointerEvents: 'auto' }}
                 >
                   {navItems.map((item, index) => {
@@ -128,7 +129,7 @@ export default function Header() {
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: 50, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                  transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
                 >
                   <StaggeredButton
                     enableHoverBg={false} 

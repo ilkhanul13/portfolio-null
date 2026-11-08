@@ -6,7 +6,7 @@ import { projectsData } from '../../utils/projectsData';
 import { getProjectImage } from '../../utils/cloudinaryHelpers'; 
 import PageTransition from '../../components/PageTransition';
 import StaggeredButton from '../../components/StaggeredButton';
-import LiquidTransition from '../../components/LiquidTransition';
+import BlurTransition from '../../components/BlurTransition';
 
 // --- VARIANTS CONFIGURATION ---
 const headerSequenceVariants = {
@@ -173,7 +173,7 @@ function ProjectContent({ project }) {
           </div>
           <div className="flex items-center gap-3">
             <motion.span variants={fadeUpVariants} className="shrink-0 w-1 h-1 bg-white/50"></motion.span>
-            <MaskedReveal className="text-white/60">Year <span className="text-[#d2ff00]">{project.year}</span></MaskedReveal>
+            <MaskedReveal className="text-white/60">Year <span className="font-mono text-[#d2ff00]">{project.year}</span></MaskedReveal>
           </div>
         </div>
       </motion.div>
@@ -254,14 +254,12 @@ function ProjectContent({ project }) {
                     onLoad={() => setIsImageLoading(false)} 
                   />
                   <div className="absolute inset-0">
-                    <LiquidTransition
-                      key={`liquid-${activeImage.publicId}`} 
+                    <BlurTransition
+                      key={`blur-${activeImage.publicId}`} 
                       firstImageSrc={getUrl(prevImage) || getUrl(activeImage)}
                       secondImageSrc={getUrl(activeImage)}
-                      numPoints={5}
-                      duration={1.3}
+                      duration={1.2}
                       className="w-full h-full"
-                      imgClassName="bg-cover bg-center"
                     />
                   </div>
                 </>

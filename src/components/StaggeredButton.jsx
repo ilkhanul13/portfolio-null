@@ -24,7 +24,7 @@ export default function StaggeredButton({
   
   // LOGIKA PINTAR: Menentukan jenis elemen
   const isInternal = href && href.startsWith('/');
-  const isExternal = href && href.startsWith('http');
+  const isExternal = href && /^(https?:|mailto:|tel:)/.test(href);
 
   // 1. Default component adalah motion.button
   let Component = motion.button;
