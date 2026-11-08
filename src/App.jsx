@@ -76,7 +76,7 @@ function AppContent() {
   // --- LOGIC DELAY DINAMIS ---
   // Jika First Load: 0.5s (Cepat, overlap dengan InitialLoader)
   // Jika Navigasi Biasa: 1.3s (Lambat, nunggu PageTransition block & text selesai)
-  const homeDelay = isFirstLoad ? 0.3 : 0.8;
+  const homeDelay = isFirstLoad ? 0.3 : 0.6;
 
   return (
     <div className="app selection:bg-[#d2ff00] selection:text-black">

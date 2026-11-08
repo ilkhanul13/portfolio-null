@@ -1,18 +1,21 @@
 import { motion } from "framer-motion";
 
-const BLOCK_DURATION = 0.6; 
-const STAGGER = 0.05;
-const TEXT_STAY = 0.3; 
+const BLOCK_DURATION = 0.5;
+const EXIT_DURATION = 0.45;
+const STAGGER = 0.04;
+const TEXT_DELAY = 0.05;
+const TEXT_DURATION = 0.5; // masuk -> tahan sebentar -> keluar
+const REVEAL_DELAY = 0.4; // blok mulai terangkat saat teks hampir selesai keluar
 
 const textRevealVariants = {
   initial: { y: "100%" },
   animate: {
     y: ["100%", "0%", "0%", "-100%"],
     transition: {
-      times: [0, 0.2, 0.8, 1],
-      duration: TEXT_STAY + 0.4, 
+      times: [0, 0.3, 0.65, 1],
+      duration: TEXT_DURATION,
       ease: [0.76, 0, 0.24, 1],
-      delay: 0.1 
+      delay: TEXT_DELAY
     }
   }
 };
@@ -23,7 +26,7 @@ const blockVariants = {
     y: "-100%",
     transition: {
       duration: BLOCK_DURATION,
-      delay: (TEXT_STAY + 0.3) + (STAGGER * i), 
+      delay: REVEAL_DELAY + (STAGGER * i),
       ease: [0.76, 0, 0.24, 1],
     },
     transitionEnd: { y: "100%" }
@@ -31,7 +34,7 @@ const blockVariants = {
   exit: (i) => ({
     y: "0%",
     transition: {
-      duration: BLOCK_DURATION,
+      duration: EXIT_DURATION,
       delay: STAGGER * i,
       ease: [0.76, 0, 0.24, 1],
     },
@@ -72,7 +75,7 @@ export default function PageTransition({ children, routeName }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: TEXT_STAY }}
+        transition={{ duration: 0.5, delay: REVEAL_DELAY }}
       >
         {children}
       </motion.div>
