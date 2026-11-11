@@ -7,6 +7,8 @@ import { getProjectImage } from '../../utils/cloudinaryHelpers';
 import PageTransition from '../../components/PageTransition';
 import StaggeredButton from '../../components/StaggeredButton';
 import BlurTransition from '../../components/BlurTransition';
+import JustifiedRows from '../../components/JustifiedRows';
+import useImageRatios from '../../hooks/useImageRatios';
 
 // --- VARIANTS CONFIGURATION ---
 const headerSequenceVariants = {
@@ -115,6 +117,7 @@ function ProjectContent({ project }) {
   const [isImageLoading, setIsImageLoading] = useState(false); 
 
   const imageList = project.images || [];
+  const getImageRatio = useImageRatios(imageList);
   const activeImage = selectedImage || (imageList.length > 0 ? imageList[0] : null);
   const getUrl = (img) => img ? getProjectImage(img, 'large') : '';
 
@@ -193,20 +196,26 @@ function ProjectContent({ project }) {
           
           {/* COL 1: Thumbnails */}
           <div className="w-full flex flex-col order-2 lg:order-1 self-stretch justify-between">
-            <motion.div variants={fadeUpVariants} className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-3 gap-2">
-              {imageList.map((imgObj, index) => {
-                const isActive = activeImage === imgObj;
-                return (
-                  <div 
-                    key={imgObj.publicId || index} 
-                    className={`group w-full aspect-square bg-[#1a1a1a] cursor-pointer border border-transparent transition-all duration-300 relative overflow-hidden z-10 ${isActive ? 'border-none' : 'hover:border-none'}`}
-                    onClick={() => handleThumbnailClick(imgObj)}
-                  >
-                    <img src={getProjectImage(imgObj, 'tiny')} alt="thumb" style={{ imageRendering: 'pixelated' }} className="absolute inset-0 w-full h-full object-cover z-0" />
-                    <img src={getProjectImage(imgObj, 'medium')} alt="thumb clear" className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
-                  </div>
-                );
-              })}
+            <motion.div variants={fadeUpVariants}>
+              <JustifiedRows
+                items={imageList}
+                getKey={(imgObj) => imgObj.publicId}
+                getRatio={getImageRatio}
+                gap={8}
+                columns={{ base: [3], md: [4], lg: [3] }}
+                renderItem={(imgObj) => {
+                  const isActive = activeImage === imgObj;
+                  return (
+                    <div
+                      className="group w-full h-full bg-[#1a1a1a] cursor-pointer relative overflow-hidden z-10"
+                      onClick={() => handleThumbnailClick(imgObj)}
+                    >
+                      <img src={getProjectImage(imgObj, 'tiny')} alt="thumb" style={{ imageRendering: 'pixelated' }} className="absolute inset-0 w-full h-full object-cover z-0" />
+                      <img src={getProjectImage(imgObj, 'medium')} alt="thumb clear" className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                    </div>
+                  );
+                }}
+              />
             </motion.div>
 
             <motion.div variants={fadeUpVariants} className="flex flex-row gap-2 mt-12 lg:mt-auto pt-6 justify-center lg:justify-start">
@@ -229,7 +238,11 @@ function ProjectContent({ project }) {
 
           {/* COL 2: Preview Area with Refined Loader */}
           <motion.div variants={fadeUpVariants} className="w-full relative order-1 lg:order-2">
-            <div className="relative w-full bg-[#1a1a1a] shadow-2xl overflow-hidden min-h-75">
+            {/* Rasio kotak mengikuti gambar aktif (tanpa min-height paksa yang memotong gambar di mobile) */}
+            <div
+              className="relative w-full bg-[#1a1a1a] shadow-2xl overflow-hidden"
+              style={{ aspectRatio: activeImage ? getImageRatio(activeImage) : 4 / 3 }}
+            >
               
               <AnimatePresence>
                 {isImageLoading && (
@@ -250,7 +263,7 @@ function ProjectContent({ project }) {
                   <img 
                     key={`ratio-${activeImage.publicId}`} 
                     src={getUrl(activeImage)} 
-                    className="w-full h-auto opacity-0 block pointer-events-none" 
+                    className="absolute inset-0 w-full h-full opacity-0 pointer-events-none" 
                     onLoad={() => setIsImageLoading(false)} 
                   />
                   <div className="absolute inset-0">
@@ -297,9 +310,17 @@ function ProjectContent({ project }) {
                </h3>
             </div>
             <MaskedReveal>
-              <p className="text-[1rem] md:text-[1.1rem] leading-[1.6] text-white font-light tracking-wide">
-                  {project.description}
-              </p>
+              {/* description boleh string atau array paragraf; antar paragraf diberi jarak */}
+              <div className="flex flex-col gap-4 md:gap-5">
+                {(Array.isArray(project.description)
+                  ? project.description
+                  : String(project.description || '').split(/\n+/)
+                ).map((para, idx) => (
+                  <p key={idx} className="text-[1rem] md:text-[1.1rem] leading-[1.6] text-white font-light tracking-wide">
+                    {para}
+                  </p>
+                ))}
+              </div>
             </MaskedReveal>
           </div>
 

@@ -1,32 +1,80 @@
 export const projectsData = [
 
   {
-    id: 9,
-    slug: "brand",
-    title: "Poster Ads",
-    client: "FeedBird",
-    category: "Brand",
-    year: "2025",
-    description: "This advertising poster design was originally created as part of a graphic design recruitment task from FeedBird, which involved producing two advertising posters for the CheongKwanJang Hong Sam Won product. The company operates in the high-quality herbal supplement industry, combining Korean red ginseng, red date extract, red berries, and other natural ingredients. The product is intended to help boost energy, enhance immune endurance, and support overall health.",
-    tools: [
-      {app: "Canva"},
+    id: 10,
+    slug: "absora-sejahtera-group",
+    title: "Absora Sejahtera Group",
+    client: "Absoora",
+    category: "Logo Design",
+    year: "2026",
+    description: [
+      "These posters are shared on social media as a form of visual communication as well as a space for design exploration. Each design represents ideas, style experimentation, and different visual approaches. The creative process reflects the development of design skills over time. These works are then curated as part of a portfolio.",
+      "Designed to maintain brand consistency across various platforms and communication materials, this guideline serves as a visual reference to ensure the brand is presented clearly, cohesively, and professionally."
     ],
-    size: "small",
+    tools: [
+      {app: "Adobe Illustrator"},
+      {app: "Adobe Photoshop"},
+    ],
     links: [
-      { label: "Instagram", url: "https://feedbird.com" },
-      { label: "Facebook", url: "https://www.instagram.com/feedbirdcom/" },
-      { label: "Linkedin", url: "https://web.facebook.com/feedbird.co/" },
-      { label: "Website", url: "http://linkedin.com/company/feedbirdco/" }
+      { label: "Tiktok", url: "https://www.tiktok.com/@absoora.coffee" },
+      { label: "Instagram", url: "https://www.instagram.com/absoora.coffee/?hl=en" },
     ],
     images: [
-      { publicId: "version1_rq7slj" },
-      { publicId: "version2_bdukm7" },
+      { publicId: "Guideline-01_hg324h" },
+      { publicId: "Guideline-02_rmzbxh" },
+      { publicId: "Guideline-03_bdaqkl" },
+      { publicId: "Guideline-04_jpjhns" },
+      { publicId: "Guideline-05_zvwhee" },
+      { publicId: "Guideline-06_zhbkvd" },
+      { publicId: "Guideline-07_t4cz0w" },
+      { publicId: "Guideline-08_c3foql" },
+      { publicId: "Guideline-09_tdzhd2" },
+      { publicId: "Guideline-10_hnib40" },
+      { publicId: "Guideline-11_yos1ns" },
+      { publicId: "Guideline-12_zwqkft" },
+      { publicId: "Guideline-13_ulwfs0" },
+      { publicId: "Guideline-14_sxgxb5" },
+      { publicId: "Guideline-15_pbkl0w" },
+    ],
+  },
+
+  {
+    id: 9,
+    slug: "somba-palioi-fc",
+    title: "Somba Palioi FC",
+    client: "Somba Palioi FC",
+    category: "Logo Design",
+    year: "2026",
+    description: [
+      "A brand identity guideline project developed for Somba Palioi FC, a football club, with the aim of establishing a strong, distinctive, and cohesive visual identity. The guideline covers essential logo standards, including logo proportions, clear space, color variations, typography, and proper usage across different applications.",
+      "Designed to reflect the club's identity and create a consistent visual presence, this guideline serves as a reference for applying the brand across football kits, merchandise, promotional materials, and digital platforms while maintaining a recognizable and unified identity."
+    ],
+    tools: [
+      {app: "Adobe Illustrator"},
+      {app: "Adobe Photoshop"},
+    ],
+    links: [
+      { label: "Instagram", url: "https://www.instagram.com/sombapalioifc/?hl=en" },
+    ],
+    images: [
+      { publicId: "Guideline-01_b8lunt" },
+      { publicId: "Guideline-02_vq1i5i" },
+      { publicId: "Guideline-03_abjipz" },
+      { publicId: "Guideline-04_nibtea" },
+      { publicId: "Guideline-05_ltlqd1" },
+      { publicId: "Guideline-06_klvm0x" },
+      { publicId: "Guideline-07_vsmxye" },
+      { publicId: "Guideline-08_vrdyoo" },
+      { publicId: "Guideline-09_ptyuzj" },
+      { publicId: "Guideline-10_mm40at" },
+      { publicId: "Guideline-11_hqmjdg" },
+      { publicId: "Guideline-12_naqler" },
     ],
   },
 
   {
     id: 8,
-    slug: "personal",
+    slug: "poster",
     title: "Poster",
     client: "Personal",
     category: "Poster Design",
@@ -36,7 +84,6 @@ export const projectsData = [
       {app: "Adobe Illustrator"},
       {app: "Adobe Photoshop"},
     ],
-    size: "medium",
     links: [
       { label: "Github", url: "https://www.linkedin.com/in/ilkhanul-khalik-262920391/" },
       { label: "Linkedin", url: "https://www.linkedin.com/in/ilkhanul-khalik-262920391/" },
@@ -49,13 +96,12 @@ export const projectsData = [
       { publicId: "heavy_ol9z26" },
       { publicId: "freepalestine_rwev3g" },
       { publicId: "ctlyalogo_kqeqf6" },
-      { publicId: "joeposter_bu9jyu" },
     ],
   },
 
   {
     id: 7,
-    slug: "alize",
+    slug: "flyer-formalis",
     title: "Flyer Formalis",
     client: "Formalis",
     category: "Flyer Design",
@@ -66,7 +112,6 @@ export const projectsData = [
       {app: "Adobe Photoshop"},
       {app: "Canva"},
     ],
-    size: "small",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/formalis_lipia/" },
       { label: "Facebook", url: "https://www.facebook.com/formalis.lipia.71" },
@@ -94,7 +139,6 @@ export const projectsData = [
       {app: "Adobe Photoshop"},
       {app: "Canva"},
     ],
-    size: "small",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/km_bulukumba/" },
       { label: "Facebook", url: "https://www.facebook.com/kmbulukumba/?_rdc=2&_rdr#" },
@@ -120,7 +164,6 @@ export const projectsData = [
     tools: [
       {app: "Adobe Illustrator"},
     ],
-    size: "small",
     links: [
       { label: "Tiktok", url: "https://www.tiktok.com/@barudurian0" },
     ],
@@ -150,7 +193,6 @@ export const projectsData = [
       {app: "Adobe Illustrator"},
       {app: "Adobe Photoshop"},
     ],
-    size: "medium",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/absoora.coffee/" },
       { label: "Tiktok", url: "https://www.tiktok.com/@absoora.coffee" },
@@ -173,7 +215,7 @@ export const projectsData = [
 
   {
     id: 3,
-    slug: "t-shirt",
+    slug: "start-with-for",
     title: "Start With For",
     client: "Formalis",
     category: "T-Shirt Design",
@@ -184,7 +226,6 @@ export const projectsData = [
       {app: "Adobe Photoshop"},
       {app: "Figma"},
     ],
-    size: "small",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/formalis_lipia/" },
       { label: "Facebook", url: "https://www.facebook.com/formalis.lipia.71" },
@@ -211,7 +252,6 @@ export const projectsData = [
     tools: [
       {app: "Adobe Illustrator"},
     ],
-    size: "small",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/reels/DR0mUXpgYbK/" },
     ],
@@ -233,7 +273,7 @@ export const projectsData = [
 
   {
     id: 1,
-    slug: "musyar",
+    slug: "musyar-xxii",
     title: "Musyar XXII",
     client: "Formalis",
     category: "Logo Design",
@@ -242,7 +282,6 @@ export const projectsData = [
     tools: [
       {app: "Adobe Illustrator"},
     ],
-    size: "small",
     links: [
       { label: "Instagram", url: "https://www.instagram.com/formalis_lipia/" },
       { label: "Facebook", url: "https://www.facebook.com/formalis.lipia.71" },

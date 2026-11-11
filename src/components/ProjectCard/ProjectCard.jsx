@@ -29,7 +29,8 @@ export default function ProjectCard({ project }) {
   // Helper untuk mendapatkan URL gambar
   const getImageUrl = (imgId) => {
     if (!imgId) return null;
-    return getCloudinaryUrl(imgId, { width: 800, height: 800, crop: 'fill' });
+    // Tanpa crop paksa 1:1 — rasio asli dipertahankan, kartu mengikuti rasio cover
+    return getCloudinaryUrl(imgId, { width: 1000, crop: 'limit', gravity: null });
   };
 
   const currentImageUrl = getImageUrl(currentImage);
@@ -79,14 +80,14 @@ export default function ProjectCard({ project }) {
   };
 
   return (
-    <Link to={`/work/${project.slug}`} className="block w-full text-inherit no-underline group">
-      <motion.div 
+    <Link to={`/work/${project.slug}`} className="block w-full h-full text-inherit no-underline group">
+      <motion.div
         className="w-full h-full flex flex-col relative"
         initial="initial"
         whileHover="hover"
         animate="initial"
       >
-        <div className="w-full aspect-square relative overflow-hidden bg-[#111] flex-none isolate">
+        <div className="w-full h-full relative overflow-hidden bg-[#111] flex-none isolate">
           
           {/* --- LAYER IMAGE DENGAN STRIPE TRANSITION --- */}
           <motion.div 

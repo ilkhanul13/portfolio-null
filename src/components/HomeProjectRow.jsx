@@ -1,16 +1,20 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion'; // <--- JANGAN LUPA IMPORT INI
 import { getCloudinaryUrl } from "../utils/cloudinaryHelpers"; 
 import StaggeredButton from './StaggeredButton';
-import VariableProximity from './VariableProximity';
 import BlurTransition from './BlurTransition';
+import useImageRatios from '../hooks/useImageRatios';
 
 // Tambahkan prop 'animDelay' disini
 export default function HomeProjectRow({ project, index = 0 }) {
-  const containerRef = useRef(null);
   const images = project.images || [];
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Rasio asli gambar cover dari Cloudinary (dibatasi 0.6 - 2.2 agar layout tetap wajar)
+  const coverImages = useMemo(() => images.slice(0, 1), [project]);
+  const getRatio = useImageRatios(coverImages);
+  const coverRatio = Math.min(2.2, Math.max(0.6, images[0] ? getRatio(images[0]) : 1));
 
   // --- LOGIC TIMER SLIDESHOW (Tetap sama) ---
   useEffect(() => {
@@ -28,7 +32,7 @@ export default function HomeProjectRow({ project, index = 0 }) {
 
   const getImageUrl = (imgId) => {
     if (!imgId) return null;
-    return getCloudinaryUrl(imgId, { width: 600, height: 600, crop: 'fill' });
+    return getCloudinaryUrl(imgId, { width: 900, crop: 'limit', gravity: null });
   };
 
   const currentImageUrl = getImageUrl(currentImage);
@@ -59,7 +63,7 @@ export default function HomeProjectRow({ project, index = 0 }) {
         className="w-full h-full"
       >
           <Link to={`/work/${project.slug}`} className="block w-full h-full">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-full items-start pt-4 pb-8">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 h-full items-start pt-4 pb-8">
             
               {/* KOLOM 1: Index Number */}
               <div className="md:col-span-1 flex flex-col justify-start items-start">
@@ -69,16 +73,19 @@ export default function HomeProjectRow({ project, index = 0 }) {
               </div>
 
               {/* KOLOM 2: Title & Details */}
-              <div ref={containerRef} className="md:col-span-6 flex flex-col gap-8 justify-start items-start">
-                <VariableProximity
-                  label={project.title}
-                  className="text-white text-[clamp(2rem,4vw,4rem)] leading-[0.9] tracking-normal"
-                  fromFontVariationSettings="'wght' 500, 'opsz' 40"
-                  toFontVariationSettings="'wght' 100, 'opsz' 40"
-                  containerRef={containerRef}
-                  radius={150}
-                  falloff="linear"
-                />
+              <div
+                className="md:col-span-6 min-w-0 flex flex-col gap-3 md:gap-4 justify-start items-start"
+                style={{ '--fs': 'clamp(1.75rem, 4vw, 4rem)', minHeight: 'calc(var(--fs) * 1.9 + 0.75rem + 3rem)' }}
+              >
+                {/* Rata kiri, maksimal 2 baris (sisanya dipotong). Tinggi kolom (bukan jarak judul-kategori) dicadangkan untuk 2 baris agar tinggi tiap row seragam */}
+                <div
+                  className="w-full text-left text-white leading-[0.9] tracking-normal line-clamp-2"
+                  style={{ fontSize: 'var(--fs)', paddingBottom: '0.1em' }}
+                >
+                  <span style={{ fontVariationSettings: "'wght' 500, 'opsz' 40", fontFamily: '"Bricolage Grotesque", sans-serif' }}>
+                    {project.title}
+                  </span>
+                </div>
                 <div className="flex flex-col gap-3 text-white/60 text-lg">
                   <div className="flex items-center gap-4">
                     <div className="w-1.25 h-1.25 rounded-none bg-white/40 shrink-0" />
@@ -92,10 +99,13 @@ export default function HomeProjectRow({ project, index = 0 }) {
               </div>
 
               {/* KOLOM 3: Staggered Stripe Image Transition */}
-              <div className="md:col-span-5 w-full flex justify-end">
+              <div className="md:col-span-5 w-full flex justify-end items-start lg:h-87.5">
+                {/* Rasio mengikuti gambar cover; lebar dibatasi agar tinggi maksimal 350px di desktop */}
                 <div 
-                    className="relative w-full lg:w-auto lg:h-87.5 aspect-square overflow-hidden bg-[#111] isolate"
+                    className="relative w-full lg:w-[min(100%,calc(21.875rem*var(--r)))] overflow-hidden bg-[#111] isolate"
                     style={{
+                      '--r': coverRatio,
+                      aspectRatio: coverRatio,
                       transform: 'translateZ(0)',
                       backfaceVisibility: 'hidden',
                       outline: '1px solid black'
